@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import defaultContacts from '../data/data.json';
 
-export default function useLocaStorage(key, defaultValue) {
+
+export default function useLocaStorage(key) {
   const [state, setState] = useState(() => {
-    return JSON.parse(window.localStorage.getItem(key)) ?? defaultValue;
+    return JSON.parse(window.localStorage.getItem(key)) ?? defaultContacts;
   });
 
   useEffect(() => {

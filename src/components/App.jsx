@@ -4,11 +4,10 @@ import { Container, Title, ContactListTitle } from './App/App.styled';
 import Form from './Form/Form';
 import ContactsList from './Contact__List/Contact__List';
 import Filter from './Filter/Filter';
-import defaultContacts from '../data/data.json';
 import useLocaStorage from 'hooks/useLocalStorage';
 
 const App = () => {
-  const [contacts, setContacts] = useLocaStorage('contacts', defaultContacts);
+  const [contacts, setContacts] = useLocaStorage('contacts');
   const [filter, setFilter] = useState('');
 
   const addContact = ({ name, number }) => {
