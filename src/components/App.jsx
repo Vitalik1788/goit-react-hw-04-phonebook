@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { Container, Title, ContactListTitle } from './App/App.styled';
 import Form from './Form/Form';
