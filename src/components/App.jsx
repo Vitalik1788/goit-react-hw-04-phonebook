@@ -5,20 +5,21 @@ import Form from './Form/Form';
 import ContactsList from './Contact__List/Contact__List';
 import Filter from './Filter/Filter';
 
+const getLocalStorageAmount = () => {
+  const userContacts = localStorage.getItem('contacts');
+  const parsedContacts = JSON.parse(userContacts);
+  return parsedContacts;
+}
+  
 const App = () => {
-  const [contacts, setContacts] = useState(localStoragePageStart());
-  const [filter, setFilter] = useState('');
-
-  function localStoragePageStart() {
-    const userContacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(userContacts);
-    return parsedContacts;
-  }
-
+  const [contacts, setContacts] = useState(getLocalStorageAmount());
+  const [filter, setFilter] = useState('');       
+  
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
+  
   const addContact = ({ name, number }) => {
     const contact = {
       id: nanoid(),
@@ -28,7 +29,7 @@ const App = () => {
 
     const normalizedName = name.toLowerCase().trim();
 
-    if (
+    if (contacts !== null && 
       contacts.find(contact => contact.name.toLowerCase() === normalizedName)
     ) {
       return alert(`${name} is already in contacts!`);
@@ -37,16 +38,15 @@ const App = () => {
   };
 
   const deleteContact = contactId => {
-    setContacts(prevState =>
-      prevState.filter(contact => contact.id !== contactId)
-    );
+    setContacts(prevState => prevState.filter(contact => contact.id !== contactId));
   };
 
   const onFilteredContact = () => {
-    const normalizedFilter = filter.toLowerCase().trim();
+    if (contacts) {
+      const normalizedFilter = filter.toLowerCase().trim();
     return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
+    contact.name.toLowerCase().includes(normalizedFilter)
+    )}    
   };
 
   const filteredContact = onFilteredContact();

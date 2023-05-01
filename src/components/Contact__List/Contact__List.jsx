@@ -5,7 +5,7 @@ import { BsFillBookmarkCheckFill } from "react-icons/bs";
 const ContactsList = ({ contacts, onDeleteContact } ) => {
   return (
     <ul>
-      {contacts.map(({id, name, number}) => {
+      {contacts && contacts.map(({id, name, number}) => {
         return (
           <ContactItem key={id}>
             <BsFillBookmarkCheckFill style={{ color: "blue", marginRight: "15px"}} />
